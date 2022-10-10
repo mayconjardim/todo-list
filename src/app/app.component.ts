@@ -8,13 +8,16 @@ import { TodoList } from './todo-list';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'todo';
+  title = 'Todo-List';
 
   private list = new TodoList("Bob", [
     new TodoItem("Go for run", true),
     new TodoItem("Get flowers"),
     new TodoItem("Collect tickets"),
   ]);
+
+  showComplete: boolean = false;
+
 
   get username(): string {
     return this.list.user;
@@ -25,7 +28,7 @@ export class AppComponent {
   }
 
   get items(): readonly TodoItem[] {
-    return this.list.items.filter(item => !item.complete);
+    return this.list.items.filter(item => this.showComplete || !item.complete);
   }
 
   addItem(newItem: string) {
